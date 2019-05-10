@@ -866,6 +866,23 @@ def testing():
       File "skfmm/pfmm.py", line 173, in travel_time
         int(self_test), TRAVEL_TIME, order, narrow, periodic)
     RuntimeError: Negative discriminant in time marcher quadratic.
+
+    >>> phi = np.array([[1, -1, -1],
+    ...                 [0,  0, -1],
+    ...                 [0,  0,  1]])
+    >>> phi = np.ma.MaskedArray(phi,phi==0)
+    >>> speed = np.array([[ 1, 0.26, 1. ],
+    ...                   [ 0, 0,    1. ],
+    ...                   [ 0, 0,    1. ]])
+    >>> assert not travel_time(phi,speed,order=1)[0][1] == 0
+    Traceback (most recent call last):
+      File "/usr/lib/python2.7/doctest.py", line 1315, in __run
+        compileflags, 1) in test.globs
+      File "<doctest skfmm.testing[347]>", line 1, in <module>
+        assert not travel_time(phi,speed)[0][3] == 0
+      File "skfmm/pfmm.py", line 173, in travel_time
+        int(self_test), TRAVEL_TIME, order, narrow, periodic)
+    RuntimeError: Negative discriminant in time marcher quadratic.
     """
 
 def test(verbose=None):
